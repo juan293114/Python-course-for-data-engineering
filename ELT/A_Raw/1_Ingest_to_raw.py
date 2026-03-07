@@ -13,12 +13,16 @@ import requests
 
 # COMMAND ----------
 
-# DBTITLE 1,Creación de esquema y volumen
+# DBTITLE 1,Declaración de rutas
 # Detecta el catálogo actual (suele ser 'workspace' o 'main')
 current_catalog = spark.sql("select current_catalog()").first()[0]
 catalog = current_catalog
 schema = "raw"
 volume = "tvmze"
+
+# COMMAND ----------
+
+# DBTITLE 1,Creación de esquema y volumen
 
 # Crea esquema y volumen si no existen
 spark.sql(f"CREATE SCHEMA IF NOT EXISTS {catalog}.{schema}")
@@ -34,14 +38,16 @@ dbutils.fs.rm("/Volumes/workspace/raw/tvmze", recurse=True)
 
 # COMMAND ----------
 
-# DBTITLE 1,Definir parámetros
-# Crear widgets
+# DBTITLE 1,Creación de widgets
 dbutils.widgets.text("start_date", "2023-01-01", "Start Date (YYYY-MM-DD)")
 dbutils.widgets.text("end_date", "2023-12-31", "End Date (YYYY-MM-DD)")
 dbutils.widgets.text("output_dir", "/Volumes/workspace/raw/tvmze", "Output Directory")
 dbutils.widgets.text("api_enpoint", "https://api.tvmaze.com/schedule/web", "API endpoint")
 dbutils.widgets.text("timeout", "30", "Time Out")
 
+# COMMAND ----------
+
+# DBTITLE 1,Consultar widgets
 # Leer valores de los widgets
 start_date = pendulum.parse(dbutils.widgets.get("start_date")).date()
 end_date = pendulum.parse(dbutils.widgets.get("end_date")).date()
