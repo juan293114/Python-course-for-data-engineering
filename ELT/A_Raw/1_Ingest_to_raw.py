@@ -92,3 +92,7 @@ while current_date <= end_date:
 
 print(f"Archivos guardados: {len(saved_files)}")
 
+
+# COMMAND ----------
+
+print(f"hello world")
