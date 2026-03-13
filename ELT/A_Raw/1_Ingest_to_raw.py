@@ -13,6 +13,23 @@ import requests
 
 # COMMAND ----------
 
+# MAGIC %sql
+# MAGIC select current_catalog()
+
+# COMMAND ----------
+
+current_catalog = spark.sql("select current_catalog()").first()[0]
+catalog = current_catalog
+schema = "raw"
+volume = "tvmze"
+spark.sql(f"CREATE SCHEMA IF NOT EXISTS {catalog}.{schema}")
+
+# COMMAND ----------
+
+spark.sql(f"CREATE VOLUME IF NOT EXISTS {catalog}.{schema}.{volume}")
+
+# COMMAND ----------
+
 # DBTITLE 1,Creación de esquema y volumen
 # Detecta el catálogo actual (suele ser 'workspace' o 'main')
 current_catalog = spark.sql("select current_catalog()").first()[0]
