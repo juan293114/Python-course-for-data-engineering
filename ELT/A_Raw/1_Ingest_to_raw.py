@@ -39,7 +39,7 @@ dbutils.fs.rm("/Volumes/workspace/raw/tvmze", recurse=True)
 # COMMAND ----------
 
 # DBTITLE 1,Creación de widgets
-dbutils.widgets.text("start_date", "2023-01-01", "Start Date (YYYY-MM-DD)")
+dbutils.widgets.text("start_date", "2023-12-01", "Start Date (YYYY-MM-DD)")
 dbutils.widgets.text("end_date", "2023-12-31", "End Date (YYYY-MM-DD)")
 dbutils.widgets.text("output_dir", "/Volumes/workspace/raw/tvmze", "Output Directory")
 dbutils.widgets.text("api_enpoint", "https://api.tvmaze.com/schedule/web", "API endpoint")
