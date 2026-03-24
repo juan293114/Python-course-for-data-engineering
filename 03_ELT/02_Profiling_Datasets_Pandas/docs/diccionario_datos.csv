@@ -1,0 +1,16 @@
+columna,descripcion,dtype_pandas,nulos,pct_nulos,unicos,ejemplos
+id_venta,Identificador de la venta.,int64,0,0.0,50300,1 | 2 | 3
+fecha_venta,Fecha en la que se registró la venta.,datetime64[ns],0,0.0,366,2024-02-02 | 2024-10-09 | 2024-08-26
+ciudad,Ciudad asociada al cliente o a la venta.,object,899,1.78,8,Cartagena | Bucaramanga | Medellín
+canal,Canal por el cual se realizó la venta.,object,303,0.6,5,call_center | web | call_center
+estado,Estado operacional de la venta.,object,0,0.0,5,completada | completada | completada
+segmento,Segmento comercial del cliente.,object,0,0.0,3,hogar | pyme | hogar
+producto,Producto adquirido.,object,0,0.0,5,ahorro | tarjeta | seguro
+edad_cliente,Edad reportada del cliente.,float64,403,0.8,96,48.0 | 15.0 | 15.0
+ingreso_mensual,Ingreso mensual estimado del cliente.,float64,606,1.2,46658,2232.34 | 3878.71 | 3127.25
+cantidad,Cantidad de productos en la venta.,int64,0,0.0,7,7 | 3 | 6
+precio_unitario,Precio unitario del producto.,float64,0,0.0,23111,104.83 | 223.04 | 0.19
+descuento_pct,Porcentaje de descuento aplicado.,float64,0,0.0,403,0.176 | 0.103 | 0.197
+email,Correo electrónico del cliente.,object,301,0.6,49455,cliente1@correo.com | cliente2@correo.com | cliente3@correo.com
+monto_bruto,Valor bruto calculado antes del descuento.,float64,0,0.0,38687,733.81 | 669.12 | 1.14
+monto_neto,Valor neto calculado después del descuento.,float64,0,0.0,41717,604.66 | 600.2 | 0.92
