@@ -1,24 +1,18 @@
 # Databricks notebook source
 # DBTITLE 1,Instalación de paquets
-# MAGIC %pip install pendulum
-
-# COMMAND ----------
-
-# DBTITLE 1,Importación de librerías
-
-import json
-from pathlib import Path
-import pendulum
-import requests
+# MAGIC %pip install kaggle
+# MAGIC dbutils.library.restartPython()
 
 # COMMAND ----------
 
 # DBTITLE 1,Creación de esquema y volumen
-# Detecta el catálogo actual (suele ser 'workspace' o 'main')
+# Detecta el catálogo actual
 current_catalog = spark.sql("select current_catalog()").first()[0]
+
 catalog = current_catalog
 schema = "raw"
-volume = "tvmze"
+volume = "kaggle_adidas_US_sales"
+dataset_code = "sagarmorework/adidas-us-sales"
 
 # Crea esquema y volumen si no existen
 spark.sql(f"CREATE SCHEMA IF NOT EXISTS {catalog}.{schema}")
@@ -26,63 +20,30 @@ spark.sql(f"CREATE VOLUME IF NOT EXISTS {catalog}.{schema}.{volume}")
 
 # COMMAND ----------
 
-# DBTITLE 1,Eliminar archivos de raw
+# DBTITLE 1,Importación de librerías y conexión a API
+import os
+from kaggle.api.kaggle_api_extended import KaggleApi
 
-# Elimina todos los archivos y subcarpetas dentro de la ruta
-dbutils.fs.rm("/Volumes/workspace/raw/tvmze", recurse=True)
+#Llamada del scope con los secret (apikey y user de kaggle)
+username = dbutils.secrets.get(scope = "kaggle_api", key = "kaggle_user")
+key = dbutils.secrets.get(scope = "kaggle_api", key = "kaggle_api_key")
 
+#Se llevan a la variable de entorno los secret de kaggle
+os.environ['KAGGLE_USERNAME'] = username
+os.environ['KAGGLE_KEY'] = key
 
-# COMMAND ----------
-
-# DBTITLE 1,Definir parámetros
-# Crear widgets
-dbutils.widgets.text("start_date", "2023-01-01", "Start Date (YYYY-MM-DD)")
-dbutils.widgets.text("end_date", "2023-12-31", "End Date (YYYY-MM-DD)")
-dbutils.widgets.text("output_dir", "/Volumes/workspace/raw/tvmze", "Output Directory")
-dbutils.widgets.text("api_enpoint", "https://api.tvmaze.com/schedule/web", "API endpoint")
-dbutils.widgets.text("timeout", "30", "Time Out")
-
-# Leer valores de los widgets
-start_date = pendulum.parse(dbutils.widgets.get("start_date")).date()
-end_date = pendulum.parse(dbutils.widgets.get("end_date")).date()
-output_dir = Path(dbutils.widgets.get("output_dir"))
-endpoint_dir = dbutils.widgets.get("api_enpoint")
-API_URL = endpoint_dir
-timeout = int(dbutils.widgets.get("timeout"))
+#Autenticacion con la api de Kaggle
+api = KaggleApi()
+api.authenticate()
 
 # COMMAND ----------
 
-# DBTITLE 1,Ingestar en la capa raw
-saved_files = []
-current_date = start_date
+# DBTITLE 1,Ingesta del RAW
 
-session = requests.Session()
-
-while current_date <= end_date:
-    date_str = current_date.to_date_string()
-
-    daily_output_dir = (
-        output_dir
-        / f"{current_date.year:04d}"
-        / f"{current_date.month:02d}"
-        / f"{current_date.day:02d}"
-    )
-    daily_output_dir.mkdir(parents=True, exist_ok=True)
-
-    file_path = daily_output_dir / "tvmaze.json"
-
-    try:
-        response = session.get(API_URL, params={"date": date_str}, timeout=timeout)
-        response.raise_for_status()
-    except requests.RequestException:
-        current_date = current_date.add(days=1)
-        continue
-
-    # Más rápido: guardar bytes del JSON tal cual lo devuelve la API
-    file_path.write_bytes(response.content)
-
-    saved_files.append(str(file_path))
-    current_date = current_date.add(days=1)
-
-print(f"Archivos guardados: {len(saved_files)}")
-
+#Descarga el dataset desde Kaggle, y descomprime su contenido
+api.dataset_download_files(
+    dataset_code, 
+    path=f"/Volumes/{catalog}/{schema}/{volume}", 
+    force=True, 
+    unzip=True
+)
