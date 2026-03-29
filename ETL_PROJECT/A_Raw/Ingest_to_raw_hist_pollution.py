@@ -4,6 +4,10 @@
 import json
 from pathlib import Path
 import requests
+import pandas as pd
+from datetime import datetime, timedelta
+from pyspark.sql import SparkSession
+import os
 
 # COMMAND ----------
 
@@ -27,27 +31,23 @@ spark.sql(f"CREATE VOLUME IF NOT EXISTS {catalog}.{schema}.{volume}")
 # DBTITLE 1,Eliminar archivos de raw
 
 # Elimina todos los archivos y subcarpetas dentro de la ruta
-dbutils.fs.rm("/Volumes/workspace/raw/proyecto/openweathermap", recurse=True)
+#dbutils.fs.rm("/Volumes/workspace/raw/proyecto/openweathermap", recurse=True)
 
 
 # COMMAND ----------
 
 # DBTITLE 1,Creación de widgets
-dbutils.widgets.text("start_date", "2026-01-01", "Start Date (YYYY-MM-DD)")
-dbutils.widgets.text("end_date", "2026-03-22", "End Date (YYYY-MM-DD)")
+dbutils.widgets.text("start_date", "", "Start Date (YYYY-MM-DD)")
+dbutils.widgets.text("end_date", "", "End Date (YYYY-MM-DD)")
 dbutils.widgets.text("output_dir", "/Volumes/workspace/raw/proyecto/openweathermap", "Output Directory")
+dbutils.widgets.text("api_token", "")
 
 # COMMAND ----------
 
-# DBTITLE 1,Ingestar en la capa raw
-import pandas as pd
-import requests
-import os
-from datetime import datetime, timedelta
-from pyspark.sql import SparkSession
+# API key
+api_key = dbutils.widgets.get("api_token")
 
-# Inicializar Spark
-spark = SparkSession.builder.getOrCreate()
+# COMMAND ----------
 
 # Parámetros de fechas (strings)
 start_date_str = dbutils.widgets.get("start_date")
@@ -58,17 +58,18 @@ output_dir = Path(dbutils.widgets.get("output_dir"))
 start_date = datetime.strptime(start_date_str, "%Y-%m-%d")
 end_date = datetime.strptime(end_date_str, "%Y-%m-%d")
 
+# COMMAND ----------
+
+# DBTITLE 1,Ingestar en la capa raw
 # Leer CSV con distritos y coordenadas
 df_geo = pd.read_csv("/Volumes/workspace/raw/proyecto/data_ubigeo_1.csv", sep=";", encoding="utf-8")
 
-# API key
-api_key = "87540974e80b74a39483b21a3f7bd928"
-
 # Bucle día por día
+print("procesando desde : ", start_date, " hasta: ", end_date )
 current_date = start_date
 while current_date <= end_date:
     # Definir rango de 24 horas
-    start_ts = int(current_date.timestamp())
+    start_ts = int(current_date.timestamp()) 
     end_ts = int((current_date + timedelta(days=1)).timestamp())
 
     print(f"Procesando día: {current_date.strftime('%Y-%m-%d')}")
@@ -107,7 +108,16 @@ while current_date <= end_date:
     # Guardar todos los registros de ese día
     y, m, d = current_date.strftime("%Y-%m-%d").split("-")
     path = f"{output_dir}/{y}/{m}/{d}/air_pollution.json"
+
+    # Si existe un archivo previo, lo borramos
+    if os.path.exists(path):
+        os.remove(path)
+        print(f"Archivo existente eliminado: {path}")
+
+    # Crear directorio si no existe
     os.makedirs(os.path.dirname(path), exist_ok=True)
+
+    # Guardar nuevo archivo JSON
     pd.DataFrame(registros_dia).to_json(path, orient="records", lines=True, force_ascii=False)
     print(f"Guardado: {path}")
 
