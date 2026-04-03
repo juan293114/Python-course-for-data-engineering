@@ -1,0 +1,29 @@
+# Entornos virtuales de Python
+venv/
+.venv/
+env/
+
+# Archivos compilados de Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Configuraciones locales de IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Archivos del sistema operativo
+Thumbs.db
+.DS_Store
+
+# Configuraciones locales de Claude Code
+.claude/
+
+# Archivos temporales
+*.tmp
+*.log

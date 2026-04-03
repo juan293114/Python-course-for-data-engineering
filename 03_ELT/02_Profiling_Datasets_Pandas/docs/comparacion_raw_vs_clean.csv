@@ -1,3 +1,0 @@
-dataset,filas,columnas,memoria_mb,duplicados_exactos,nulos_totales,reduccion_memoria_pct
-raw,50500,15,20.92,200,2512,0.0
-clean,50300,15,6.01,0,6192,71.27
