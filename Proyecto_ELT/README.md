@@ -1,8 +1,8 @@
 # 🏗️ Pipeline Medallion — Global Super Store
 
 Proyecto de Data Engineering desarrollado en Databricks Free Edition.
-Implementa una arquitectura medallion completa con la data de ventas online via GitHub API, después de  tener las capas modeladas y cargadas, se consume la capa gold en Power BI para la generación de reportería.
-La orquestación se realiza mediante un job en Databricks Free Edition que presenta un registro log de las ejecuciones y un schedule diario a las 14:00.
+Implementa una **arquitectura medallion** completa con la data de ventas online via **GitHub API**, después de  tener las capas modeladas y cargadas, se consume la capa gold en **Power BI** para la generación de reportería.
+La orquestación se realiza mediante un **job en Databricks Free Edition** que presenta un registro log de las ejecuciones y un schedule diario a las 14:00.
 
 ## Objetivo
 
@@ -20,3 +20,4 @@ Modelar la data de ventas online bajo un modelo estrella, separando ['Paises','P
 - **Orquestación:** Databricks Jobs
 - **Fuente:** GitHub API → Kaggle Global Super Store Dataset
 
+<img width="1215" height="350" alt="Job" src="https://github.com/user-attachments/assets/ccec33bf-69b7-4959-817e-668db1c76da1" />
