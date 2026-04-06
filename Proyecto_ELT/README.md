@@ -63,6 +63,7 @@ SELECT
     error_message
 FROM workspace.logs.pipeline_execution_log
 ORDER BY execution_ts DESC;
+```
 
 ## 👤 Autor
 **johnek96** — Proyecto del curso de Data Engineering
