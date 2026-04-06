@@ -45,6 +45,24 @@ Con estos parámetros y el token, el job tiene los datos necesarios para ejecuta
 
 <img width="1215" height="350" alt="Job" src="https://github.com/user-attachments/assets/ccec33bf-69b7-4959-817e-668db1c76da1" />
 
+## Logs
+Cuando haya concluido la ejecución del job, la última tarea registra la carga y ejecución en un delta table con los registros.
+
+Para consultar los registros de esta tabla, ejecutar en un notebook el siguiente script:
+
+%sql
+-- %sql Consultar historial de ejecuciones
+SELECT
+    execution_ts,
+    job_name,
+    bronze_rows,
+    silver_rows,
+    fact_rows,
+    status,
+    error_message
+FROM workspace.logs.pipeline_execution_log
+ORDER BY execution_ts DESC;
+
 ## 👤 Autor
 **johnek96** — Proyecto del curso de Data Engineering
 
