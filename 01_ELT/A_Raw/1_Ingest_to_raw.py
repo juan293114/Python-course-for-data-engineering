@@ -93,7 +93,7 @@ headers = {
 for page in range(1, TOTAL_PAGES + 1):
 
     try:
-        # 🔹 1. Obtener listado de películas
+        #Obtener listado de películas
         list_response = session.get(
             "https://api.themoviedb.org/3/movie/popular",
             headers=headers,
@@ -120,7 +120,7 @@ for page in range(1, TOTAL_PAGES + 1):
             continue
 
         try:
-            # 🔹 2. Guardar detalle
+            #Guardar detalle
             detail_url = f"https://api.themoviedb.org/3/movie/{movie_id}"
 
             detail_res = session.get(
@@ -140,7 +140,7 @@ for page in range(1, TOTAL_PAGES + 1):
 
             saved_files.append(f"movies/{movie_id}")
 
-            # 🔹 3. Guardar créditos (actores)
+            #Guardar créditos (actores)
             credits_url = f"https://api.themoviedb.org/3/movie/{movie_id}/credits"
 
             credits_res = session.get(
@@ -160,7 +160,7 @@ for page in range(1, TOTAL_PAGES + 1):
 
             saved_files.append(f"credits/{movie_id}")
 
-            # 🔹 4. Control de rate limit
+            #Control de rate limit
             time.sleep(0.25)
 
         except requests.RequestException:
