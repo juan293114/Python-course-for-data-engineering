@@ -50,7 +50,7 @@ Cuando haya concluido la ejecución del job, la última tarea registra la carga 
 
 Para consultar los registros de esta tabla, ejecutar en un notebook el siguiente script:
 
-'''sql
+```sql
 %sql
 -- %sql Consultar historial de ejecuciones
 SELECT
