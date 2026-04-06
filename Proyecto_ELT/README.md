@@ -14,10 +14,38 @@ Modelar la data de ventas online bajo un modelo estrella, separando ['Paises','P
 
 ## 🛠️ Stack tecnológico
 
-- **Plataforma:** Databricks Free Edition
-- **Lenguaje:** Python (PySpark + pandas)
-- **Formato:** Delta Lake
-- **Orquestación:** Databricks Jobs
-- **Fuente:** GitHub API → Kaggle Global Super Store Dataset
+- **Orquestación:**
+    - **Databricks Jobs**: Orquestador utilizado para la programación del pipeline, se utilizan ejecuciones de notebooks, un schedule para automatizar la ejecución y un notify para fallos en ejecuciones.
+- **Fuente:**
+    - **GitHub API** → **Kaggle Global Super Store Dataset** : Es la fuente que contiene el dataset de kaggle 'Global Super Store' (https://www.kaggle.com/datasets/apoorvaappz/global-super-store-dataset) que provee las ventas online de distintos paises.
+- **Lenguaje:**
+    - **Python (PySpark)**: Lenguaje principal utilizado para la ingesta y transformación.
+    - **Pandas**: Biblioteca para manipulación y generación de df para lectura y carga en tablas.
+- **Almacenamiento:**
+    - **Delta Lake**: Formato de almacenamiento de datos construido sobre archivos Parquet utilizado en todas las capas del proyecto, exceptuando la RAW .
+
+
+## ⚙️ Configuración
+
+### Token GitHub
+Crear un Fine-grained token con permisos:
+- Contents: Read-only
+- Metadata: Read-only
+Este token es necesario ya que el dataset se encuentra en un repositorio github y para la conexión directa, se solicitará un token, pero los permisos son los minimos necesarios.
+
+- ### Job Parameters
+| Parámetro | Valor |
+|---|---|
+| github_owner | johnek96 |
+| github_repo | Proyecto-Python-Data-Engineering |
+| github_branch | main |
+| github_path | Global_Superstore2.csv |
+
+Con estos parámetros y el token, el job tiene los datos necesarios para ejecutar el primer task 'RAW', desde allí, las demás tareas se ejecutarán en secuencia, excepto en la capa gold que los dim_ se ejecutan en paralelo y el fact_ al final.
 
 <img width="1215" height="350" alt="Job" src="https://github.com/user-attachments/assets/ccec33bf-69b7-4959-817e-668db1c76da1" />
+
+## 👤 Autor
+**johnek96** — Proyecto del curso de Data Engineering
+
+
