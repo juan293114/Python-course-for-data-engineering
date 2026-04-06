@@ -66,6 +66,6 @@ ORDER BY execution_ts DESC;
 ```
 
 ## 👤 Autor
-**johnek96** — Proyecto del curso de Data Engineering
+**John Espinoza Kon** — Proyecto del curso de Data Engineering
 
 
