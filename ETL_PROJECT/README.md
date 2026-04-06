@@ -44,6 +44,7 @@ Este proyecto utiliza Databricks para construir el pipeline de principio a fin:
 * **Procesamiento y Transformación (ELT):**
     * **Python:** Lenguaje principal utilizado para toda la lógica de ingesta y transformación.
     * **Pandas:** Biblioteca clave para la manipulación, limpieza, enriquecimiento y estructuración de los datos en las capas Bronze y Silver.
+    * **PySpark:** Biblioteca esencial para el procesamiento distribuido y escalable de grandes volúmenes de datos, clave en la construcción de las capas Bronze, Silver y Gold. Permite ingestar, transformar y enriquecer datasets con eficiencia, soportando particionado, incremental loads y escritura en formato Delta para asegurar calidad y rendimiento en los pipelines ELT.
 
 * **Almacenamiento (Data Lake):**
     * **JSON:** Formato elegido para la capa Raw.
