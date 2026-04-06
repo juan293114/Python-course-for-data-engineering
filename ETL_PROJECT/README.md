@@ -40,6 +40,7 @@ Este proyecto utiliza Databricks para construir el pipeline de principio a fin:
 
 * **Fuente de Datos:**
     * **openweathermap API**: Es la fuente de datos (endpoint `http://api.openweathermap.org/data/2.5/air_pollution/history?lat={lat}&lon={lon}&start={start_ts}&end={end_ts}&appid={api_key}`) que provee la información diaria de la calidad de aire.
+    * **Github Ubigeos_peru**: Fuente de datos que permite obtener información demográgica y geográfica de los distritos de Lima: `https://github.com/MichaelSuarez0/ubigeos_peru/tree/main/databases`
 
 * **Procesamiento y Transformación (ELT):**
     * **Python:** Lenguaje principal utilizado para toda la lógica de ingesta y transformación.
