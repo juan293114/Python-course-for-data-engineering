@@ -1,0 +1,31 @@
+id_producto,nombre_producto,categoria,precio_unitario
+101,Laptop Lenovo IdeaPad,Tecnologia,3200.0
+102,Mouse Logitech M185,Tecnologia,75.0
+103,Teclado Redragon Kumara,Tecnologia,180.0
+104,Monitor Samsung 24,Tecnologia,850.0
+105,Auriculares JBL Tune,Tecnologia,220.0
+106,Silla Ergonomica Oficina,Hogar,650.0
+107,Escritorio Melamina,Hogar,780.0
+108,Lampara LED Escritorio,Hogar,95.0
+109,Mochila Porta Laptop,Accesorios,140.0
+110,Disco SSD 1TB,Tecnologia,420.0
+111,Smartphone Samsung A55,Tecnologia,1800.0
+112,Tablet Lenovo M10,Tecnologia,950.0
+113,Impresora HP InkTank,Tecnologia,690.0
+114,Cafetera Oster,Hogar,310.0
+115,Licuadora Philips,Hogar,260.0
+116,Microondas LG,Hogar,540.0
+117,Zapatillas Running Nike,Deportes,350.0
+118,Polera Deportiva Adidas,Deportes,120.0
+119,Balon Futbol Puma,Deportes,90.0
+120,Bicicleta Urbana Aro 29,Deportes,1450.0
+121,Reloj Inteligente Xiaomi,Tecnologia,280.0
+122,Camara Web Logitech,Tecnologia,190.0
+123,Parlante Bluetooth Sony,Tecnologia,260.0
+124,Libro Python para Datos,Libros,95.0
+125,Libro SQL desde Cero,Libros,88.0
+126,Cuaderno Ejecutivo,Oficina,25.0
+127,Pack Lapiceros Pilot,Oficina,18.0
+128,Agenda 2026,Oficina,35.0
+129,Router TP-Link AX1800,Tecnologia,310.0
+130,Memoria USB 64GB,Tecnologia,45.0

@@ -1,0 +1,51 @@
+id_cliente,nombre,pais,email
+1,Carlos Ruiz,Mexico,carlos@example.com
+2,Ana Maria,Colombia,ana@example.com
+3,Juan Pedro,España,juan@example.com
+4,Lucia Fernandez,Peru,lucia@example.com
+5,Diego Sosa,Argentina,diego@example.com
+6,Elena Gomez,Mexico,elena@example.com
+7,Roberto Carlos,Brasil,roberto@example.com
+8,Marta Diaz,Colombia,marta@example.com
+9,Sofia Lopez,Peru,sofia@example.com
+10,Ricardo Arjona,Guatemala,ricardo@example.com
+11,Fernando Alonso,España,fernando@example.com
+12,Gabriel Garcia,Colombia,gabriel@example.com
+13,Ximena Duque,Mexico,ximena@example.com
+14,Luis Miguel,Mexico,luis@example.com
+15,Paola Turbay,Colombia,paola@example.com
+16,Jorge Drexler,Uruguay,jorge@example.com
+17,Natalia Lafourcade,Mexico,natalia@example.com
+18,Gustavo Cerati,Argentina,gustavo@example.com
+19,Shakira Mebarak,Colombia,shakira@example.com
+20,Lionel Messi,Argentina,lionel@example.com
+21,Mariana Pajon,Colombia,mariana@example.com
+22,Sergio Perez,Mexico,checo@example.com
+23,Penelope Cruz,España,penelope@example.com
+24,Gaston Acurio,Peru,gaston@example.com
+25,Christian Meier,Peru,christian@example.com
+26,Eva Ayllon,Peru,eva@example.com
+27,Manu Ginobili,Argentina,manu@example.com
+28,Rosalia Vila,España,rosalia@example.com
+29,Bad Bunny,Puerto Rico,benito@example.com
+30,Karol G,Colombia,karolg@example.com
+31,J Balvin,Colombia,jbalvin@example.com
+32,Daddy Yankee,Puerto Rico,daddy@example.com
+33,Luis Fonsi,Puerto Rico,fonsi@example.com
+34,Alejandro Sanz,España,alejandro@example.com
+35,Enrique Iglesias,España,enrique@example.com
+36,Chayanne Figueroa,Puerto Rico,chayanne@example.com
+37,Ricky Martin,Puerto Rico,ricky@example.com
+38,Marc Anthony,EEUU,marc@example.com
+39,Jennifer Lopez,EEUU,jlo@example.com
+40,Maluma Londono,Colombia,maluma@example.com
+41,Camilo Echeverry,Colombia,camilo@example.com
+42,Evaluna Montaner,Venezuela,evaluna@example.com
+43,Ricardo Montaner,Venezuela,ricardo_m@example.com
+44,Nacho Mendoza,Venezuela,nacho@example.com
+45,Chino Miranda,Venezuela,chino@example.com
+46,Mon Laferte,Chile,mon@example.com
+47,Jorge Gonzalez,Chile,jorge_g@example.com
+48,Beto Cuevas,Chile,beto@example.com
+49,Julieta Venegas,Mexico,julieta@example.com
+50,Thalia Sodi,Mexico,thalia@example.com
