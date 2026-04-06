@@ -29,8 +29,8 @@ Modelar la data de ventas online bajo un modelo estrella, separando ['Paises','P
 
 ### Token GitHub
 Crear un Fine-grained token con permisos:
-- Contents: Read-only
-- Metadata: Read-only
+- **Contents**: Read-only
+- **Metadata**: Read-only
 Este token es necesario ya que el dataset se encuentra en un repositorio github y para la conexión directa, se solicitará un token, pero los permisos son los minimos necesarios.
 
 - ### Job Parameters
