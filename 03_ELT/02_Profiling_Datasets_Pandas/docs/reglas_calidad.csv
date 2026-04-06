@@ -1,7 +1,0 @@
-regla,filas_invalidas,pct_invalidas
-edad_valida_18_100,2305,4.56
-email_valido_simple,551,1.09
-precio_positivo,327,0.65
-ingreso_no_negativo,245,0.49
-fecha_no_futura,205,0.41
-descuento_entre_0_y_1,61,0.12
