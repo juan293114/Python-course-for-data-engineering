@@ -28,14 +28,6 @@ spark.sql(f"CREATE VOLUME IF NOT EXISTS {catalog}.{schema}.{volume}")
 
 # COMMAND ----------
 
-# DBTITLE 1,Eliminar archivos de raw
-
-# Elimina todos los archivos y subcarpetas dentro de la ruta
-#dbutils.fs.rm("/Volumes/workspace/raw/proyecto/openweathermap", recurse=True)
-
-
-# COMMAND ----------
-
 # DBTITLE 1,Creación de widgets
 dbutils.widgets.text("start_date", "", "Start Date (YYYY-MM-DD)")
 dbutils.widgets.text("end_date", "", "End Date (YYYY-MM-DD)")
@@ -49,14 +41,25 @@ api_key = dbutils.widgets.get("api_token")
 
 # COMMAND ----------
 
-# Parámetros de fechas (strings)
-start_date_str = dbutils.widgets.get("start_date")
-end_date_str = dbutils.widgets.get("end_date")
-output_dir = Path(dbutils.widgets.get("output_dir"))
+# Obtener parámetros de los widgets (en UTC)
+start_date_str = dbutils.widgets.get("start_date")  # ej. '2026-04-06T00:00:00'
+end_date_str   = dbutils.widgets.get("end_date")    # ej. '2026-04-06T23:59:59'
 
 # Convertir a objetos datetime
-start_date = datetime.strptime(start_date_str, "%Y-%m-%d")
-end_date = datetime.strptime(end_date_str, "%Y-%m-%d")
+start_date_utc = datetime.fromisoformat(start_date_str)
+end_date_utc   = datetime.fromisoformat(end_date_str)
+
+# Ajustar a Lima (UTC-5)
+start_date = start_date_utc - timedelta(hours=5)
+end_date   = end_date_utc - timedelta(hours=5)
+
+print("Start date Lima:", start_date)
+print("End date Lima:", end_date)
+
+# COMMAND ----------
+
+
+output_dir = Path(dbutils.widgets.get("output_dir"))
 
 # COMMAND ----------
 
@@ -109,7 +112,7 @@ while current_date <= end_date:
     y, m, d = current_date.strftime("%Y-%m-%d").split("-")
     path = f"{output_dir}/{y}/{m}/{d}/air_pollution.json"
 
-    # Si existe un archivo previo, lo borramos
+    # Si existe un archivo previo, lo borra
     if os.path.exists(path):
         os.remove(path)
         print(f"Archivo existente eliminado: {path}")
