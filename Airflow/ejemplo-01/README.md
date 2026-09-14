@@ -71,7 +71,12 @@ En esta configuración se demora entre 65 a 72 segundos
 
 
 ## B) worker_concurrency = 6
-En esta configuración se demora entre  segundos 
+En esta configuración se demora entre 15 y 18 segundos 
+<img width="774" height="141" alt="image" src="https://github.com/user-attachments/assets/6b0a8ec4-2b1f-4bc0-ae85-7a3d2b12caa1" />
+
+<img width="916" height="386" alt="image" src="https://github.com/user-attachments/assets/3c1a0d2f-d6a8-4b32-accc-6eb4713a7e14" />
+
+
 
 ## C) worker_concurrency = 3
 En esta configuración se demora entre  segundos 
