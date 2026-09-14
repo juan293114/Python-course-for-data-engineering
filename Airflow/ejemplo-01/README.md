@@ -17,33 +17,46 @@ tiempo total tarda en completarse bajo tres configuraciones distintas de capacid
 El siguiente código implementa las 6 tareas independientes solicitadas para simular la generación de reportes utilizando el decorador `@task` (TaskFlow API) y un retardo artificial de 10 segundos por ciudad.
 
 ```python
-import time
+
+from airflow import DAG
+from airflow.providers.standard.operators.python import PythonOperator
 from datetime import datetime
-from airflow.decorators import dag, task
+import time
 
-@dag(
-    dag_id="dag_reportes_delivery",
-    schedule=None,
+
+def generar_reporte(ciudad):
+    print(f"Iniciando reporte de {ciudad}...")
+
+    # Simular procesamiento durante 10 segundos
+    time.sleep(10)
+
+    print(f"Reporte de {ciudad} terminado.")
+
+
+with DAG(
+    dag_id="ejercicio1",
     start_date=datetime(2026, 1, 1),
+    schedule=None,
     catchup=False,
-    tags=["tarea_4", "concurrencia"],
-)
-def reportes_delivery_dag():
-    
-    ciudades = ["Lima", "Arequipa", "Trujillo", "Chiclayo", "Piura", "Cusco"]
+    tags=["ejercicio1", "delivery", "concurrencia"],
+) as dag:
 
-    @task(task_id="generar_reporte")
-    def generar_reporte(ciudad: str):
-        print(f"Iniciando generación de reporte para la ciudad: {ciudad}")
-        time.sleep(10)
-        print(f"Reporte de {ciudad} completado de manera exitosa.")
+    ciudades = [
+        "Lima",
+        "Arequipa",
+        "Trujillo",
+        "Chiclayo",
+        "Piura",
+        "Cusco"
+    ]
 
-    # Al ser tareas independientes sin dependencias cruzadas,
-    # se invocan en paralelo dentro del flujo.
     for ciudad in ciudades:
-        generar_reporte(ciudad=ciudad)
 
-reportes_delivery_dag()
+        PythonOperator(
+            task_id=f"reporte_{ciudad.lower()}",
+            python_callable=generar_reporte,
+            op_kwargs={"ciudad": ciudad},
+        )
 ```
 
 ---
