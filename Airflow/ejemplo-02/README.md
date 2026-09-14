@@ -22,3 +22,11 @@ El recurso compartido y vulnerable externo es el **Gateway de la API corporativa
 * **Criterio de Elección de 2 Slots:** Se crearon exactamente **2 slots** asignados al pool `pool_api_banco`. Si los flujos automáticos o ejecuciones manuales intentan invocar la tarea `dispersar_fondos_banco` de las cuatro ciudades al mismo tiempo, los mecanismos internos de Airflow bloquearán el paso de las dos tareas sobrantes, manteniéndolas en estado `queued`.
 * **Beneficio de Protección:** En el instante en que cualquiera de las dos transferencias en curso libere su slot tras completar su ejecución, Airflow enviará de inmediato la siguiente tarea acumulada en la cola. Esto nos permite explotar al máximo el paralelismo permitido del canal bancario corporativo, blindando completamente a la infraestructura de Almacenes Éxito de recibir bloqueos de seguridad o errores de tipo `HTTP 429 Too Many Requests`.
 
+## 3. Ejecuciónes 
+
+<img width="1435" height="510" alt="image" src="https://github.com/user-attachments/assets/0cb2b8b6-564e-4bfa-97bc-11d56c4b27cd" />
+
+<img width="1285" height="549" alt="image" src="https://github.com/user-attachments/assets/7f35e994-9c28-44ae-8baa-482ed893cdaf" />
+
+
+
