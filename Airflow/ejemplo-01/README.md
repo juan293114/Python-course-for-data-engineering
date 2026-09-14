@@ -79,7 +79,12 @@ En esta configuración se demora entre 15 y 18 segundos
 
 
 ## C) worker_concurrency = 3
-En esta configuración se demora entre  segundos 
+En esta configuración se demora entre 15 y 23 segundos 
+<img width="1193" height="265" alt="image" src="https://github.com/user-attachments/assets/426b7122-5f05-4aa6-8280-f8d570e306c6" />
+
+<img width="917" height="343" alt="image" src="https://github.com/user-attachments/assets/44107f25-e436-48ef-9b0d-7470723d8e6a" />
+
+
 
 ### Tabla de Resultados Obtenidos
 
