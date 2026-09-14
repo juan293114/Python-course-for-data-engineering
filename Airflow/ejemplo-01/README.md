@@ -1,4 +1,4 @@
-# Tarea Individual — Clase 4: Executors y Concurrencia
+# Ejercicio — Clase 4: Executors y Concurrencia
 **Curso:** PEDE/9 — Apache Airflow  
 **Profesor:** Renato Arrascue  
 **Alumno:** [Tu Nombre Aquí]  
