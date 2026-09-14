@@ -63,21 +63,12 @@ with DAG(
 
 ## 2. Tiempos Medidos de Ejecución
 
-Las mediciones se realizaron en Windows utilizando **PowerShell** mediante el cmdlet `Measure-Command` para calcular la duración total desde el trigger hasta la finalización del DAG en los metadatos.
+## A worker_concurrency = 1
+<img width="761" height="243" alt="image" src="https://github.com/user-attachments/assets/372cb732-c62c-47c7-ae2a-31d01fb8d47a" />
 
-### Comando de Medición Utilizado (PowerShell):
-```powershell
-Measure-Command {
-    # 1. Disparar el DAG en el contenedor del scheduler
-    docker compose exec airflow-scheduler airflow dags trigger dag_reportes_delivery
-    
-    # 2. Loop de espera hasta que el estado deje de ser 'running'
-    do {
-        Start-Sleep -Seconds 2
-        $status = docker compose exec airflow-scheduler airflow dags list-runs --dag-id dag_reportes_delivery --output json | ConvertFrom-Json | Select-Object -Last 1     
-    } while ($status.state -eq "running")
-}
-```
+## B worker_concurrency = 6
+## C worker_concurrency = 3
+
 
 ### Tabla de Resultados Obtenidos
 
