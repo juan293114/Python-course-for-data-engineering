@@ -3,7 +3,12 @@
 **Profesor:** Renato Arrascue  
 **Alumno:** [Tu Nombre Aquí]  
 
-Este repositorio contiene la resolución del ejercicio práctico de medición de tiempos y escalamiento bajo la arquitectura de **Celery Executor** en Apache Airflow 3.0.0.
+**Ejercicio 01:** 
+Una empresa de delivery tiene un DAG con 6 tasks independientes entre sí (sin dependencias unas de
+otras), cada una simulando la generación de un reporte de una ciudad distinta (Lima, Arequipa, Trujillo,
+Chiclayo, Piura, Cusco), y cada una tarda aproximadamente 10 segundos en "correr" (usen
+time.sleep(10) dentro de la task para simularlo). Construyan ese DAG desde cero, y midan cuánto
+tiempo total tarda en completarse bajo tres configuraciones distintas de capacidad de worker.
 
 ---
 
