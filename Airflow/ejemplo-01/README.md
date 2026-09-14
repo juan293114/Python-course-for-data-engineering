@@ -1,7 +1,7 @@
 # Ejercicio — Clase 4: Executors y Concurrencia
 **Curso:** PEDE/9 — Apache Airflow  
 **Profesor:** Renato Arrascue  
-**Alumno:** [Tu Nombre Aquí]  
+**Alumno:** Jorge Andres Sanchez  
 
 **Ejercicio 01:** 
 Una empresa de delivery tiene un DAG con 6 tasks independientes entre sí (sin dependencias unas de
