@@ -14,7 +14,7 @@ tiempo total tarda en completarse bajo tres configuraciones distintas de capacid
 
 ## 1. Código del DAG (`dag_reportes_delivery.py`)
 
-El siguiente código implementa las 6 tareas independientes solicitadas para simular la generación de reportes utilizando el decorador `@task` (TaskFlow API) y un retardo artificial de 10 segundos por ciudad.
+El siguiente código implementa las 6 tareas independientes solicitadas para simular la generación de reportes y un retardo artificial de 10 segundos por ciudad.
 
 ```python
 
