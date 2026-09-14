@@ -63,16 +63,18 @@ with DAG(
 
 ## 2. Tiempos Medidos de Ejecución
 
-## A worker_concurrency = 1
+## A) worker_concurrency = 1
 En esta configuración se demora entre 65 a 72 segundos 
 <img width="761" height="243" alt="image" src="https://github.com/user-attachments/assets/372cb732-c62c-47c7-ae2a-31d01fb8d47a" />
 
 <img width="922" height="388" alt="image" src="https://github.com/user-attachments/assets/9212bf0b-c24f-4d4d-81ef-ce41884e91b3" />
 
 
-## B worker_concurrency = 6
-## C worker_concurrency = 3
+## B) worker_concurrency = 6
+En esta configuración se demora entre  segundos 
 
+## C) worker_concurrency = 3
+En esta configuración se demora entre  segundos 
 
 ### Tabla de Resultados Obtenidos
 
