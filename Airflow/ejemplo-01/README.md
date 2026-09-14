@@ -88,23 +88,17 @@ En esta configuración se demora entre 15 y 23 segundos
 
 ### Tabla de Resultados Obtenidos
 
-| Configuración Evaluada | Workers Físicos | Concurrencia por Worker | Slots Totales | Tiempo Total de Ejecución |
+| Configuración Evaluada | Workers Físicos | Concurrencia por Worker | Slots Totales | Rango de Tiempo Observado |
 | :--- | :---: | :---: | :---: | :--- |
-| **(a) Mínima Capacidad** | 1 | 1 | 1 | **~62.4 segundos** |
-| **(b) Escalado Vertical** | 1 | 6 | 6 | **~12.8 segundos** |
-| **(c) Escalado Horizontal**| 2 | 3 | 6 | **~13.1 segundos** |
+| **(a) Mínima Capacidad** | 1 | 1 | 1 | **65 a 72 segundos** |
+| **(b) Escalado Vertical** | 1 | 6 | 6 | **15 a 18 segundos** |
+| **(c) Escalado Horizontal**| 2 | 3 | 6 | **15 a 23 segundos** |
 
 ---
 
-## 3. Análisis Técnico y Conclusiones
+## 3. Análisis Técnico y Conclusión
 
-### ¿Por qué la configuración (a) fue la más lenta?
-En la configuración **(a)**, contamos únicamente con 1 slot de ejecución en todo el clúster. Dado que las 6 tareas no tienen dependencias entre sí, conceptualmente son candidatas al paralelismo; sin embargo, al haber solo un canal de atención, Celery se ve obligado a procesar las ciudades de manera estrictamente **secuencial** (una tras otra). Como cada tarea toma 10 segundos, el tiempo final es el resultado de la suma aritmética directa ($10 \times 6 = 60$ segundos), sumado al pequeño overhead que le toma al Scheduler orquestar y al API server procesar los cambios de estado.
+### Explicación de los Resultados y Conclusión Corta
+El escenario **(a)** resultó ser el más lento debido a que el clúster contaba con un único slot de trabajo, obligando a Celery a procesar las 6 tareas de manera estrictamente secuencial ($10 \text{ s} \times 6 = 60 \text{ s}$ netos + *overhead* de orquestación). En contraste, los escenarios **(b)** y **(c)** redujeron el tiempo drásticamente drásticamente a un rango similar debido a que ambos habilitaron una capacidad idéntica de **6 slots simultáneos**, permitiendo que todas las tareas se ejecutaran en paralelo. 
 
-### Comparativa entre el Escalado Vertical (b) y Horizontal (c)
-Los resultados de los escenarios **(b)** y **(c)** arrojaron tiempos prácticamente idénticos (alrededor de los 12-13 segundos). Esto se debe a que en ambos modelos el sistema dispuso de una capacidad global idéntica de **6 slots de ejecución simultáneos**. Al dispararse el DAG, Redis distribuyó inmediatamente las 6 tareas a las colas de Celery, permitiendo que todas iniciaran de forma concurrente y finalizaran en un único bloque de tiempo (~10 segundos de procesamiento real + ~2-3 segundos de latencia de red e infraestructura).
-
-### Diferencia Conceptual: `worker_concurrency` vs. Réplicas
-A pesar de la similitud en los tiempos cronometrados, la diferencia arquitectónica interna entre (b) y (c) es masiva y replica los conceptos de escalado en plataformas corporativas como Java o .NET:
-* **Escalado Vertical (b):** Incrementar el `worker_concurrency` a 6 en un solo worker significa que un único proceso de Celery administra 6 hilos o subprocesos (threads/forks) concurrentes. Es altamente eficiente en consumo de memoria RAM local, pero genera un único punto de falla (si la máquina del worker cae, se detiene todo el pipeline) y está limitado al CPU físico del nodo.
-* **Escalado Horizontal (c):** Añadir réplicas físicas de contenedores distribuye la carga operativa. Cada worker corre de forma aislada controlando 3 procesos. Este enfoque introduce mayor tolerancia a fallos, ya que si un contenedor de worker muere por falta de recursos, el clúster conserva el 50% de su capacidad operativa en el otro nodo, garantizando alta disponibilidad a costa de un consumo base de memoria superior debido a la duplicación del entorno de ejecución.
+La ligera variación al alza observada en el escenario **(c)** (hasta 23 segundos) frente al **(b)** se debe a la latencia adicional de red que introduce el **escalamiento horizontal**: al distribuir las tareas entre dos contenedores físicos independientes independientes a través de Redis, el sistema experimenta un mayor costo de sincronización, inicialización de procesos y comunicación interna en comparación con los hilos internos de un único worker unificado. Mientras el escalado vertical optimiza la velocidad local y el uso de memoria, el escalado horizontal sacrifica sutiles segundos a cambio de otorgar alta disponibilidad y tolerancia a fallos en entornos de producción.
